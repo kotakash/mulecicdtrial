@@ -10,11 +10,32 @@
 	<munit:config name="demo-test-suite.xml" />
 	<munit:test name="demo-test-suite-demoFlowTest" doc:id="56c919e7-123e-4214-bbcb-083cf8dc3139" description="Test">
 		<munit:execution >
-			<munit:set-null-payload doc:name="Set null payload" doc:id="19f44b89-68d2-4ac4-9588-b3f0ae58c9db" />
+			<munit:set-event doc:name="Set Event" doc:id="bd836052-270b-4408-87be-481b04cfd2b2" >
+				<munit:payload value='{
+	"id": 100,
+	"firstName": "Bruce",
+	"lastName": "Wayne"
+}' mediaType="application/json" />
+			</munit:set-event>
 			<flow-ref doc:name="Flow-ref to demoFlow" doc:id="9742956c-b687-4a9b-9ca8-d72f5c434115" name="demoFlow"/>
 		</munit:execution>
 		<munit:validation >
-			<munit-tools:assert-equals doc:name="Assert equals" doc:id="819e7c63-0e48-4c5a-8653-656476a106c0" actual="#[payload]" expected="#['This is a demo']"/>
+			<munit-tools:assert-equals doc:name="Assert equals" doc:id="819e7c63-0e48-4c5a-8653-656476a106c0" actual="#[payload]" expected="#['Welcome! Bruce Wayne. Your id is 100']" message="Check your Tranform message!"/>
+		</munit:validation>
+	</munit:test>
+	<munit:test name="demo-test-suite-demoFlowTest1" doc:id="38aa03ee-610e-464e-b97c-efffe41d9425" description="Test">
+		<munit:execution >
+			<munit:set-event doc:name="Set Event" doc:id="e9554b03-028f-44f3-8cfd-3035966d88ad" >
+				<munit:payload value='{
+	"id": 100,
+	"firstName": "Bruce",
+	"lastName": "Wayne"
+}' mediaType="application/json" />
+			</munit:set-event>
+			<flow-ref doc:name="Flow-ref to demoFlow" doc:id="bde76995-a0ef-4418-9efd-724c9d34453c" name="demoFlow"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert-that doc:name="Assert that" doc:id="872570ee-bb9b-4534-909d-6a131482e98e" expression="#[payload]" is="#[MunitTools::startsWith('Welcome!')]" message="Check your output"/>
 		</munit:validation>
 	</munit:test>
 
